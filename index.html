@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OdV Sanitaria | Gestionale</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">+</div>
+        <div>
+          <h1>OdV Sanitaria</h1>
+          <p>Gestionale operativo</p>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav active" data-view="dashboard">Dashboard</button>
+        <button class="nav" data-view="richieste">Richieste</button>
+        <button class="nav" data-view="turni">Turni</button>
+        <button class="nav" data-view="mezzi">Mezzi</button>
+        <button class="nav" data-view="api">API demo</button>
+        <button class="nav" data-view="documentazione">Documentazione</button>
+      </nav>
+
+      <div class="user-card">
+        <span class="dot"></span>
+        <div>
+          <strong>Accesso demo</strong>
+          <small>Coordinatore</small>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Applicazione full-stack API-based</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <button id="resetData" class="ghost">Reset dati demo</button>
+      </header>
+
+      <section id="dashboard" class="view visible">
+        <div class="hero">
+          <div>
+            <h3>Gestione digitale per un'organizzazione sanitaria</h3>
+            <p>Prototipo interattivo per richieste di trasporto, turni volontari e mezzi. I dati sono salvati localmente nel browser per simulare l'uso dell'app.</p>
+          </div>
+          <button class="primary" data-open="richieste">Nuova richiesta</button>
+        </div>
+
+        <div class="stats">
+          <article><span id="statRichieste">0</span><p>Richieste attive</p></article>
+          <article><span id="statTurni">0</span><p>Turni pianificati</p></article>
+          <article><span id="statMezzi">0</span><p>Mezzi disponibili</p></article>
+          <article><span id="statCompletate">0</span><p>Richieste completate</p></article>
+        </div>
+
+        <div class="grid two">
+          <section class="panel">
+            <h3>Ultime richieste</h3>
+            <div id="latestRequests" class="list"></div>
+          </section>
+          <section class="panel">
+            <h3>Turni di oggi</h3>
+            <div id="todayShifts" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="richieste" class="view">
+        <div class="grid form-grid">
+          <form id="requestForm" class="panel form">
+            <h3>Inserisci richiesta trasporto</h3>
+            <label>Nome paziente/servizio<input name="nome" required placeholder="Es. Trasporto Rossi" /></label>
+            <label>Destinazione<input name="destinazione" required placeholder="Es. Ospedale di Varese" /></label>
+            <label>Data e ora<input name="data" type="datetime-local" required /></label>
+            <label>Priorità
+              <select name="priorita">
+                <option>Normale</option>
+                <option>Alta</option>
+                <option>Urgente</option>
+              </select>
+            </label>
+            <button class="primary">Aggiungi richiesta</button>
+          </form>
+          <section class="panel">
+            <h3>Elenco richieste</h3>
+            <div id="requestsList" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="turni" class="view">
+        <div class="grid form-grid">
+          <form id="shiftForm" class="panel form">
+            <h3>Pianifica turno</h3>
+            <label>Volontario<input name="volontario" required placeholder="Nome volontario" /></label>
+            <label>Ruolo
+              <select name="ruolo">
+                <option>Autista</option>
+                <option>Soccorritore</option>
+                <option>Coordinatore</option>
+              </select>
+            </label>
+            <label>Data<input name="data" type="date" required /></label>
+            <label>Fascia oraria<input name="fascia" required placeholder="08:00 - 14:00" /></label>
+            <button class="primary">Aggiungi turno</button>
+          </form>
+          <section class="panel">
+            <h3>Turni programmati</h3>
+            <div id="shiftsList" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="mezzi" class="view">
+        <div class="grid form-grid">
+          <form id="vehicleForm" class="panel form">
+            <h3>Aggiungi mezzo</h3>
+            <label>Codice mezzo<input name="codice" required placeholder="AMB-01" /></label>
+            <label>Tipo
+              <select name="tipo">
+                <option>Ambulanza</option>
+                <option>Automedica</option>
+                <option>Trasporto disabili</option>
+              </select>
+            </label>
+            <label>Stato
+              <select name="stato">
+                <option>Disponibile</option>
+                <option>In servizio</option>
+                <option>Manutenzione</option>
+              </select>
+            </label>
+            <button class="primary">Aggiungi mezzo</button>
+          </form>
+          <section class="panel">
+            <h3>Parco mezzi</h3>
+            <div id="vehiclesList" class="list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="api" class="view">
+        <section class="panel">
+          <h3>Simulazione API REST</h3>
+          <p class="muted">Questa sezione mostra come il frontend dialogherebbe con un backend tramite endpoint REST.</p>
+          <div class="api-grid">
+            <button class="endpoint" data-api="login">POST /login</button>
+            <button class="endpoint" data-api="richieste">GET /richieste</button>
+            <button class="endpoint" data-api="turni">GET /turni</button>
+            <button class="endpoint" data-api="mezzi">GET /mezzi</button>
+          </div>
+          <pre id="apiOutput">Seleziona un endpoint per vedere una risposta JSON demo.</pre>
+        </section>
+      </section>
+
+      <section id="documentazione" class="view">
+        <div class="grid two">
+          <section class="panel">
+            <h3>Obiettivo del progetto</h3>
+            <p>Digitalizzare i processi operativi di una OdV sanitaria attraverso un'applicazione web per coordinare richieste, turni e mezzi.</p>
+            <ul>
+              <li>Architettura a tre livelli: frontend, backend, database</li>
+              <li>Endpoint principali: /login, /richieste, /turni, /mezzi</li>
+              <li>Attenzione a sicurezza, accessi e principi GDPR</li>
+            </ul>
+          </section>
+          <section class="panel">
+            <h3>Repository e documenti</h3>
+            <p>Inserisci qui il PDF del project work nella cartella <code>docs/</code>.</p>
+            <a class="primary link" href="docs/ProjectWork_OdV_Sanitaria.pdf" target="_blank">Apri Project Work PDF</a>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
