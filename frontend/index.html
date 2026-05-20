@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Gestionale OdV Sanitaria</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav>
+      <h1>OdV Sanitaria</h1>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#api">API</a>
+      <a href="../docs/ProjectWork_OdV_Sanitaria.pdf">Project Work</a>
+    </nav>
+    <section class="hero-content">
+      <div>
+        <p class="badge">Applicazione full-stack API-based</p>
+        <h2>Gestione digitale di richieste, turni e mezzi</h2>
+        <p>Un prototipo web per supportare il coordinamento operativo di una organizzazione sanitaria di volontariato.</p>
+        <button onclick="loadData()">Carica dati demo</button>
+      </div>
+      <div class="login-card">
+        <h3>Accesso coordinatore</h3>
+        <input id="email" type="email" value="coordinatore@odv.it" />
+        <input id="password" type="password" value="demo" />
+        <button onclick="login()">Entra</button>
+        <p id="login-result"></p>
+      </div>
+    </section>
+  </header>
+
+  <main id="dashboard">
+    <section class="stats">
+      <article><span id="tot-richieste">0</span><p>Richieste</p></article>
+      <article><span id="tot-turni">0</span><p>Turni</p></article>
+      <article><span id="tot-mezzi">0</span><p>Mezzi</p></article>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h3>Richieste di trasporto</h3>
+        <div id="richieste-list"></div>
+      </div>
+      <div class="panel">
+        <h3>Turni volontari</h3>
+        <div id="turni-list"></div>
+      </div>
+      <div class="panel">
+        <h3>Mezzi</h3>
+        <div id="mezzi-list"></div>
+      </div>
+    </section>
+
+    <section id="api" class="api-box">
+      <h3>Endpoint REST principali</h3>
+      <code>POST /login</code>
+      <code>GET /richieste</code>
+      <code>POST /richieste</code>
+      <code>GET /turni</code>
+      <code>GET /mezzi</code>
+    </section>
+  </main>
+
+  <footer>
+    <p>Project Work - Digitalizzazione dei processi operativi di una OdV sanitaria</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
